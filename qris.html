@@ -2,180 +2,557 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>QRIS Payment - MOMENTA FEST</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:radial-gradient(circle at top,#0b1d4a,#050816,#000);min-height:100vh;color:#fff;padding:20px}
-.wrap{max-width:700px;margin:auto}
-.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(20px);border-radius:28px;padding:24px;margin-top:20px;text-align:center}
-.timer{font-size:42px;font-weight:800;color:#00e5ff}
-.small{color:#9fb3d1;margin-bottom:10px}
-.qrbox{padding:20px;border-radius:24px;box-shadow:0 0 35px rgba(0,229,255,.25);background:rgba(255,255,255,.04);margin:20px 0}
-.qrbox img{max-width:100%;border-radius:16px}
-.total{font-size:34px;font-weight:800;color:#00e5ff}
-.refresh{margin-top:10px;color:#cbd5e1}
-input[type=file]{width:100%;padding:12px;background:#fff;border-radius:12px;margin-top:10px}
-.preview{margin-top:15px;max-width:100%;display:none;border-radius:12px}
-.check{margin:18px 0;text-align:left}
-.btn{width:100%;padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,#00c8ff,#0099ff);color:#fff;font-weight:700;cursor:pointer}
-#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);justify-content:center;align-items:center;flex-direction:column;z-index:9999}
-.spin{width:80px;height:80px;border-radius:50%;border:6px solid rgba(255,255,255,.15);border-top:6px solid #00e5ff;animation:rot 1s linear infinite}
-@keyframes rot{100%{transform:rotate(360deg)}}
-#status{margin-top:20px;font-size:22px;font-weight:600;text-align:center}
-</style>
-</head>
-<body>
-
-<div class="wrap">
-<div class="card">
-
-<div class="small">SISA WAKTU PEMBAYARAN</div>
-<div id="payTimer" class="timer">30:00</div>
-
-<div class="qrbox">
-<img src="qris-pembayaran.png" alt="QRIS">
-</div>
-
-<div class="small">TOTAL PEMBAYARAN</div>
-<div id="total" class="total">Rp0</div>
-
-<div class="refresh">
-QR Pembayaran Akan Diperbarui Dalam
-<div id="qrTimer">05:00</div>
-</div>
-
-<div class="check">
-<label><input type="checkbox" id="agree"> Saya telah melakukan pembayaran.</label>
-</div>
-
-<input type="file" id="bukti" accept="image/*">
-<img id="preview" class="preview">
-
-<button class="btn" onclick="verifikasi()">KONFIRMASI PEMBAYARAN</button>
-
-</div>
-</div>
-
-<div id="overlay">
-<div class="spin"></div>
-<div id="status">Pembayaran Sedang Diproses...</div>
-</div>
+<title>QRIS Pembayaran - LevelUp_Fest Tegal</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(180deg,#07142B,#020817);
+color:#fff;
+padding:20px;
+}
+
+.container{
+max-width:550px;
+margin:auto;
+}
+
+.card{
+background:#0D1D3A;
+border-radius:25px;
+padding:20px;
+box-shadow:0 0 30px rgba(17,216,255,.15);
+border:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+text-align:center;
+margin-bottom:15px;
+}
+
+.logo img{
+height:80px;
+max-width:100%;
+}
+
+.banner{
+width:100%;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.title{
+text-align:center;
+font-size:28px;
+font-weight:800;
+margin-bottom:5px;
+}
+
+.status{
+text-align:center;
+color:#11D8FF;
+font-weight:700;
+margin-bottom:15px;
+}
+
+.info{
+background:#081428;
+padding:12px;
+border-radius:14px;
+margin-bottom:10px;
+}
+
+.info span{
+color:#11D8FF;
+font-weight:bold;
+}
+
+.timer{
+text-align:center;
+font-size:55px;
+font-weight:800;
+color:#11D8FF;
+margin:15px 0;
+}
+
+.qrbox{
+background:#081428;
+padding:15px;
+border-radius:18px;
+text-align:center;
+margin:15px 0;
+}
+
+.qrbox img{
+width:100%;
+max-width:320px;
+border-radius:12px;
+}
+
+.total{
+text-align:center;
+font-size:45px;
+font-weight:800;
+color:#11D8FF;
+margin-top:10px;
+}
+
+.label{
+font-size:14px;
+color:#cbd5e1;
+margin-top:10px;
+}
+
+.upload{
+margin-top:20px;
+}
+
+input[type=file]{
+width:100%;
+padding:12px;
+background:#081428;
+border:none;
+border-radius:12px;
+color:white;
+}
+
+.preview{
+display:none;
+width:100%;
+margin-top:15px;
+border-radius:12px;
+}
+
+.check{
+margin-top:15px;
+font-size:16px;
+}
+
+.btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:14px;
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+background:#11D8FF;
+color:#001;
+}
+
+.btn:hover{
+opacity:.9;
+}
+
+#loadingScreen{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#07142B;
+z-index:99999;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:30px;
+}
+
+.progressWrap{
+width:100%;
+max-width:400px;
+height:20px;
+background:#0D1D3A;
+border-radius:999px;
+overflow:hidden;
+}
+
+.progressBar{
+height:100%;
+width:0%;
+background:#11D8FF;
+transition:.5s;
+}
+
+#percent{
+font-size:42px;
+color:#11D8FF;
+margin-top:15px;
+}
+
+#loadingText{
+margin-top:15px;
+text-align:center;
+}
+
+@media(max-width:600px){
+
+.timer{
+font-size:48px;
+}
+
+.total{
+font-size:38px;
+}
+
+.title{
+font-size:24px;
+}
+
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="logo">
+<img src="logo-event.png">
+</div>
+
+<img src="banner-event.png" class="banner">
+
+<div class="title">
+LevelUp_Fest Tegal
+</div>
+
+<div class="status">
+MENUNGGU PEMBAYARAN
+</div>
+
+<div class="info">
+Invoice :
+<span id="invoice"></span>
+</div>
+
+<div class="info">
+Nomor Registrasi :
+<span id="registrasi"></span>
+</div>
+
+<div class="timer" id="timer">
+30:00
+</div>
+
+<div class="qrbox">
+
+<div class="label">
+SCAN QRIS PEMBAYARAN
+</div>
+
+<img src="qris-pembayaran.png">
+
+<div class="label">
+TOTAL PEMBAYARAN
+</div>
+
+<div class="total">
+Rp150.000
+</div>
+
+</div>
+
+<div class="check">
+<label>
+<input type="checkbox" id="agree">
+Saya telah melakukan pembayaran
+</label>
+</div>
+
+<div class="upload">
+
+<input
+type="file"
+id="bukti"
+accept="image/*">
+
+<img
+id="preview"
+class="preview">
+
+</div>
+
+<button
+class="btn"
+onclick="konfirmasiPembayaran()">
+
+KONFIRMASI PEMBAYARAN
+
+</button>
+
+</div>
+
+</div>
+
+<div id="loadingScreen">
+
+<h2 style="color:#11D8FF;">
+Verifikasi Pembayaran
+</h2>
+
+<br>
+
+<div class="progressWrap">
+<div
+class="progressBar"
+id="progressBar">
+</div>
+</div>
+
+<div id="percent">
+0%
+</div>
+
+<div id="loadingText">
+Memvalidasi Transaksi...
+</div>
+
+</div>
+
 <script>
+
+/* EMAILJS PLACEHOLDER */
+
 emailjs.init({
- publicKey:"service_9nf9rsp"
+publicKey:"YOUR_PUBLIC_KEY"
 });
 
-const total = localStorage.getItem('totalPembayaran') || '150000';
-document.getElementById('total').innerText =
-'Rp' + Number(total).toLocaleString('id-ID');
+/* NOMOR REGISTRASI */
 
-let p = 1800;
+const registrasi=
+"LVUP-2026-"+
+Math.floor(
+100000+
+Math.random()*900000
+);
+
+document.getElementById(
+"registrasi"
+).innerHTML=registrasi;
+
+/* INVOICE */
+
+document.getElementById(
+"invoice"
+).innerHTML=
+"INV-"+Date.now()
+.toString()
+.slice(-8);
+
+/* TIMER */
+
+let time=1800;
+
 setInterval(()=>{
- if(p>0){
-  p--;
-  let m=Math.floor(p/60);
-  let s=p%60;
-  document.getElementById('payTimer').innerText =
-  String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
- }
+
+if(time<=0)return;
+
+time--;
+
+let m=
+Math.floor(time/60);
+
+let s=
+time%60;
+
+document.getElementById(
+"timer"
+).innerHTML=
+String(m)
+.padStart(2,'0')
++
+":"
++
+String(s)
+.padStart(2,'0');
+
 },1000);
 
-let qr = 300;
+/* PREVIEW */
+
+document
+.getElementById("bukti")
+.addEventListener(
+"change",
+function(e){
+
+const file=
+e.target.files[0];
+
+if(!file)return;
+
+const url=
+URL.createObjectURL(file);
+
+const img=
+document.getElementById(
+"preview"
+);
+
+img.src=url;
+img.style.display="block";
+
+}
+);
+
+/* KONFIRMASI */
+
+function konfirmasiPembayaran(){
+
+const agree=
+document.getElementById(
+"agree"
+);
+
+const bukti=
+document.getElementById(
+"bukti"
+);
+
+if(!agree.checked){
+
+alert(
+"Centang konfirmasi pembayaran"
+);
+
+return;
+}
+
+if(
+bukti.files.length===0
+){
+
+alert(
+"Upload bukti pembayaran terlebih dahulu"
+);
+
+return;
+}
+
+document
+.getElementById(
+"loadingScreen"
+)
+.style.display=
+"flex";
+
+const pesan=[
+
+"Memvalidasi Transaksi...",
+
+"Menghubungkan Server Pembayaran...",
+
+"Memeriksa Bukti Pembayaran...",
+
+"Sinkronisasi Data Peserta...",
+
+"Membuat Nomor Registrasi...",
+
+"Mengirim Email Admin...",
+
+"Mengirim Auto Reply...",
+
+"Data Berhasil Diverifikasi..."
+
+];
+
+let persen=0;
+let step=0;
+
+const proses=
 setInterval(()=>{
- qr--;
- if(qr<0) qr=300;
 
- let m=Math.floor(qr/60);
- let s=qr%60;
+persen+=15;
 
- document.getElementById('qrTimer').innerText =
- String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-},1000);
+if(persen>100)
+persen=100;
 
-document.getElementById('bukti').onchange = e=>{
- const f=e.target.files[0];
- if(!f) return;
+document
+.getElementById(
+"progressBar"
+)
+.style.width=
+persen+"%";
 
- document.getElementById('preview').src =
- URL.createObjectURL(f);
+document
+.getElementById(
+"percent"
+)
+.innerHTML=
+persen+"%";
 
- document.getElementById('preview').style.display='block';
-}
+if(step<pesan.length){
 
-function verifikasi(){
+document
+.getElementById(
+"loadingText"
+)
+.innerHTML=
+pesan[step];
 
- if(!document.getElementById('agree').checked){
-  alert('Centang konfirmasi pembayaran terlebih dahulu.');
-  return;
- }
-
- if(!document.getElementById('bukti').files.length){
-  alert('Upload bukti pembayaran terlebih dahulu.');
-  return;
- }
-
- document.getElementById('overlay').style.display='flex';
-
- const dataEmail={
-  nama:localStorage.getItem('nama')||'',
-  email:localStorage.getItem('email')||'',
-  wa:localStorage.getItem('wa')||'',
-  identitas:localStorage.getItem('identitas')||'',
-  nomorIdentitas:localStorage.getItem('nomorIdentitas')||'',
-  alamat:localStorage.getItem('alamat')||'',
-  jenis_tiket:localStorage.getItem('jenis_tiket')||'',
-  totalPembayaran:localStorage.getItem('totalPembayaran')||'',
-  metode_pembayaran:'QRIS',
-  tanggal_transaksi:new Date().toLocaleString('id-ID')
- };
-
- // EMAIL ADMIN
- emailjs.send(
-  'service_9nf9rsp',
-  'template_6wlex0w',
-  dataEmail
- );
-
- // EMAIL PESERTA
- emailjs.send(
-  'service_9nf9rsp',
-  'template_egdxxaj',
-  dataEmail
- );
-
- const teks=[
- 'Pembayaran Sedang Diproses...',
- 'Menyesuaikan Data...',
- 'Mencari Bukti Pembayaran...',
- 'Memverifikasi Transaksi...',
- 'Sinkronisasi Sistem...',
- 'Mengirim Email Admin...',
- 'Mengirim Auto Reply...',
- 'Bukti Pembayaran Berhasil Dikirim...'
- ];
-
- let i=0;
-
- const jalan=setInterval(()=>{
-  i++;
-  if(i<teks.length){
-   document.getElementById('status').innerText=teks[i];
-  }
- },1500);
-
- setTimeout(()=>{
-  clearInterval(jalan);
-  window.location.href='status.html';
- },11000);
+step++;
 
 }
+
+},1500);
+
+/* EMAILJS */
+
+emailjs.send(
+
+"YOUR_SERVICE_ID",
+
+"YOUR_TEMPLATE_ID",
+
+{
+
+registrasi:
+registrasi,
+
+invoice:
+document.getElementById(
+"invoice"
+).innerHTML
+
+}
+
+).catch(()=>{});
+
+/* REDIRECT */
+
+setTimeout(()=>{
+
+clearInterval(
+proses
+);
+
+localStorage.setItem(
+"registrasi",
+registrasi
+);
+
+window.location.href=
+"status.html";
+
+},12000);
+
+}
+
 </script>
 
 </body>
