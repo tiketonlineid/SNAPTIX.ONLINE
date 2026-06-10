@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Status Pembayaran - LevelUp_Fest Tegal</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(180deg,#07142B,#020817);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+color:white;
+}
+
+.container{
+width:100%;
+max-width:550px;
+}
+
+.card{
+background:#0D1D3A;
+border-radius:25px;
+padding:25px;
+text-align:center;
+box-shadow:0 0 30px rgba(17,216,255,.15);
+border:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+margin-bottom:15px;
+}
+
+.logo img{
+height:80px;
+max-width:100%;
+}
+
+.banner{
+width:100%;
+border-radius:18px;
+margin-bottom:20px;
+}
+
+.icon{
+font-size:70px;
+margin-bottom:15px;
+}
+
+.status{
+font-size:30px;
+font-weight:800;
+color:#f59e0b;
+margin-bottom:15px;
+}
+
+.desc{
+line-height:1.8;
+color:#d1d5db;
+margin-bottom:20px;
+}
+
+.regbox{
+background:#081428;
+padding:15px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.regtitle{
+font-size:13px;
+color:#94a3b8;
+margin-bottom:8px;
+}
+
+.regnum{
+font-size:22px;
+font-weight:bold;
+color:#11D8FF;
+word-break:break-word;
+}
+
+.btn{
+display:block;
+width:100%;
+padding:15px;
+border:none;
+border-radius:14px;
+text-decoration:none;
+font-size:17px;
+font-weight:bold;
+margin-top:12px;
+cursor:pointer;
+}
+
+.btn-wa{
+background:#22c55e;
+color:white;
+}
+
+.btn-home{
+background:#11D8FF;
+color:#001;
+}
+
+.footer{
+margin-top:20px;
+font-size:13px;
+color:#94a3b8;
+}
+
+@media(max-width:600px){
+
+.status{
+font-size:24px;
+}
+
+.regnum{
+font-size:18px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="logo">
+<img src="logo-event.png" alt="Logo Event">
+</div>
+
+<img src="banner-event.png" class="banner" alt="Banner Event">
+
+<div class="icon">
+⏳
+</div>
+
+<div class="status">
+PEMBAYARAN PENDING
+</div>
+
+<div class="desc">
+
+Mohon Maaf,<br><br>
+
+Pembayaran Anda saat ini berstatus
+<b>PENDING</b>.
+
+Bukti pembayaran telah diterima dan sedang diperiksa oleh tim verifikasi.
+
+Silahkan lakukan konfirmasi ulang melalui WhatsApp Admin untuk mempercepat proses validasi.
+
+</div>
+
+<div class="regbox">
+
+<div class="regtitle">
+NOMOR REGISTRASI
+</div>
+
+<div class="regnum" id="registrasi">
+LVUP-2026-000000
+</div>
+
+</div>
+
+<a
+href="https://wa.me/6282372512525"
+target="_blank"
+class="btn btn-wa">
+
+📲 KONFIRMASI KE ADMIN
+
+</a>
+
+<a
+href="index.html"
+class="btn btn-home">
+
+🏠 KEMBALI KE BERANDA
+
+</a>
+
+<div class="footer">
+
+LevelUp_Fest Tegal © 2026<br>
+Admin WhatsApp : 0823-7251-1525
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const reg =
+localStorage.getItem("registrasi");
+
+if(reg){
+
+document.getElementById(
+"registrasi"
+).innerHTML = reg;
+
+}
+
+</script>
+
+</body>
+</html>
