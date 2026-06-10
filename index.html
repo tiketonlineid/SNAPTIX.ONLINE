@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LevelUp_Fest Tegal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{background:#f4f7fc;color:#0f172a}
+.container{width:min(100%,980px);margin:auto;padding:14px}
+.header{background:#fff;border-radius:24px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.08);margin:14px 0}
+.logo img{height:48px}
+.actions{display:flex;gap:12px;align-items:center}
+.search{width:52px;height:52px;border-radius:50%;background:#0b57d0;color:#fff;display:flex;align-items:center;justify-content:center}
+.banner img{width:100%;display:block;border-radius:24px}
+.title{font-size:clamp(24px,4vw,42px);font-weight:800;margin:18px 0 10px}
+.badge{display:inline-block;background:#e8f0ff;color:#0b57d0;padding:10px 18px;border-radius:999px;font-weight:700}
+.org{background:#fff;border-radius:20px;padding:16px;margin:16px 0;display:flex;justify-content:space-between;align-items:center}
+.orgleft{display:flex;gap:12px;align-items:center}
+.circle{width:54px;height:54px;border-radius:50%;background:#e8f0ff;display:flex;align-items:center;justify-content:center}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{background:#fff;padding:16px;border-radius:18px}
+.tabs{display:flex;gap:8px;overflow:auto;margin:18px 0}
+.tabs button{border:none;padding:12px 16px;border-radius:999px;font-weight:700}
+.tabs .active{background:#0b57d0;color:#fff}
+.tab{display:none}
+.tab.active{display:block}
+.ticket{background:#fff;border-radius:20px;overflow:hidden;border:1px solid #dde3ef;margin:16px 0}
+.ticketHead{background:#f5f8ff;padding:18px;position:relative}
+.price{color:#0b57d0;font-size:24px;font-weight:800}
+.qty{position:absolute;right:18px;top:18px;display:flex;gap:8px;align-items:center}
+.qty button{width:30px;height:30px}
+.ticketBody{padding:18px}
+.sale{display:inline-block;background:#dcfce7;color:#166534;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700}
+.buy{width:100%;margin-top:16px;padding:14px;border:none;border-radius:12px;background:#cbd5e1;color:#fff;font-weight:700}
+.buy.active{background:#0b57d0}
+footer{margin-top:30px;background:#0f172a;color:#fff;text-align:center;padding:28px;border-radius:24px 24px 0 0}
+footer img{height:50px;margin-bottom:8px}
+.wa{position:fixed;right:18px;bottom:18px;width:64px;height:64px;background:#25D366;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none}
+#loading{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);color:#fff;z-index:9999;align-items:center;justify-content:center;flex-direction:column}
+@media(max-width:600px){.info{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="loading">
+<h2>🎫 LevelUp_Fest Tegal</h2>
+<p>Menyiapkan Formulir Pemesanan</p>
+<h1 id="count">3</h1>
+</div>
+
+<div class="container">
+<div class="header">
+<div class="logo"><img src="logo-event.png"></div>
+<div class="actions">
+<div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
+<i class="fa-solid fa-bars fa-2x"></i>
+</div>
+</div>
+
+<div class="banner"><img src="banner-event.png"></div>
+
+<div class="title">LevelUp_Fest Tegal</div>
+<div class="badge">Festival</div>
+
+<div class="org">
+<div class="orgleft">
+<div class="circle"><i class="fa-solid fa-music"></i></div>
+<div><small>Penyelenggara</small><h3>Levelupfestival</h3></div>
+</div>
+<div><i class="fab fa-instagram fa-2x"></i></div>
+</div>
+
+<div class="info">
+<div class="box"><b>Jadwal Event</b><br><br>15 Agt '26<br>Zona Waktu: WIB</div>
+<div class="box"><b>Lokasi</b><br><br>Lapangan Manunggal Yonif 407</div>
+</div>
+
+<div class="tabs">
+<button class="active" onclick="tab('detail',this)">Detail Event</button>
+<button onclick="tab('venue',this)">Venue</button>
+<button onclick="tab('guest',this)">Guest Star</button>
+<button onclick="tab('faq',this)">FAQ</button>
+</div>
+
+<div id="detail" class="tab active">
+
+<div class="ticket">
+<div class="ticketHead">
+<b>NORMAL CAT 1 (VIP)</b>
+<div class="price">IDR 229.000</div>
+<div class="qty"><button onclick="qty(0,-1)">-</button><span id="q0">0</span><button onclick="qty(0,1)">+</button></div>
+</div>
+<div class="ticketBody"><span class="sale">ON SALE</span><p><br>Sesi 1<br>15 Agt '26, 15:00 - 23:00 WIB</p><button id="b0" class="buy" onclick="buy('NORMAL CAT 1 (VIP)',229000,0)" disabled>BELI TIKET</button></div>
+</div>
+
+<div class="ticket">
+<div class="ticketHead">
+<b>NORMAL CAT 2 (VIP)</b>
+<div class="price">IDR 229.000</div>
+<div class="qty"><button onclick="qty(1,-1)">-</button><span id="q1">0</span><button onclick="qty(1,1)">+</button></div>
+</div>
+<div class="ticketBody"><span class="sale">ON SALE</span><p><br>Sesi 1<br>15 Agt '26, 15:00 - 23:00 WIB</p><button id="b1" class="buy" onclick="buy('NORMAL CAT 2 (VIP)',229000,1)" disabled>BELI TIKET</button></div>
+</div>
+
+<div class="ticket">
+<div class="ticketHead">
+<b>NORMAL CAT 3 (REGULER)</b>
+<div class="price">IDR 139.000</div>
+<div class="qty"><button onclick="qty(2,-1)">-</button><span id="q2">0</span><button onclick="qty(2,1)">+</button></div>
+</div>
+<div class="ticketBody"><span class="sale">ON SALE</span><p><br>Sesi 1<br>15 Agt '26, 15:00 - 23:00 WIB</p><button id="b2" class="buy" onclick="buy('NORMAL CAT 3 (REGULER)',139000,2)" disabled>BELI TIKET</button></div>
+</div>
+
+</div>
+
+<div id="venue" class="tab">Lapangan Manunggal Yonif 407, Adiwerna, Kabupaten Tegal.</div>
+<div id="guest" class="tab">IM COMINGSOON</div>
+<div id="faq" class="tab">Informasi tiket dan ketentuan akan diperbarui oleh penyelenggara.</div>
+
+<footer>
+<img src="logo-event.png">
+<div>@Admin Center ©Snaptix.Online</div>
+<div>📲 WhatsApp : 0823-7251-1525</div>
+<div>📩 www.Tiket.Snaptix.onlionline</div>
+</footer>
+</div>
+
+<a class="wa" href="https://wa.me/6282372512525"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+function tab(id,e){
+document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+e.classList.add('active');
+}
+let q=[0,0,0];
+function qty(i,v){
+q[i]=Math.max(0,q[i]+v);
+document.getElementById('q'+i).innerText=q[i];
+let b=document.getElementById('b'+i);
+if(q[i]>0){b.disabled=false;b.classList.add('active')}else{b.disabled=true;b.classList.remove('active')}
+}
+function buy(k,h,i){
+localStorage.setItem('kategori',k);
+localStorage.setItem('harga',h);
+localStorage.setItem('qty',q[i]);
+loading.style.display='flex';
+let n=3;count.innerText=n;
+let t=setInterval(()=>{
+n--;count.innerText=n;
+if(n<=0){clearInterval(t);location.href='from.html';}
+},1000);
+}
+</script>
+</body>
+</html>
