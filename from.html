@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Peserta - LevelUp_Fest Tegal</title>
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#f4f7fc;color:#111827}
+.container{max-width:700px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 4px 15px rgba(0,0,0,.06)}
+h1{font-size:24px}
+.progress{display:flex;gap:8px;margin:15px 0}
+.step{flex:1;padding:10px;border-radius:10px;text-align:center;background:#dbeafe}
+.active{background:#0b57d0;color:#fff}
+label{display:block;margin:12px 0 6px;font-weight:bold}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px}
+textarea{min-height:100px}
+.summary{line-height:1.8}
+.actions{position:sticky;bottom:0;background:#fff;padding:15px;display:flex;gap:10px;border-top:1px solid #ddd}
+.btn{flex:1;padding:14px;border:none;border-radius:12px;font-weight:bold}
+.back{background:#e5e7eb}
+.next{background:#cbd5e1;color:#fff}
+.next.active{background:#0b57d0}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🎫 Data Peserta</h1>
+
+<div class="progress">
+<div class="step active">Detail Tiket</div>
+<div class="step active">Data Peserta</div>
+<div class="step">Pembayaran</div>
+</div>
+
+<div class="card">
+<h3>Ringkasan Pesanan</h3>
+<div class="summary">
+Kategori : <span id="kategori">-</span><br>
+Harga : Rp <span id="harga">0</span><br>
+Jumlah : <span id="qty">0</span> Tiket<br>
+<b>Total : Rp <span id="total">0</span></b>
+</div>
+</div>
+
+<div class="card">
+<h3>Form Peserta</h3>
+
+<label>Nama Lengkap *</label>
+<input type="text" id="nama">
+
+<label>Tanggal Lahir *</label>
+<input type="date" id="tgl">
+
+<label>Jenis Kelamin *</label>
+<select id="jk">
+<option value="">Pilih</option>
+<option>Laki-Laki</option>
+<option>Perempuan</option>
+</select>
+
+<label>E-mail *</label>
+<input type="email" id="email">
+
+<label>Alamat Lengkap *</label>
+<textarea id="alamat"></textarea>
+
+<label style="display:flex;gap:10px;align-items:flex-start">
+<input type="checkbox" id="agree" style="width:auto">
+<span>Saya menyetujui syarat dan ketentuan event.</span>
+</label>
+
+</div>
+
+</div>
+
+<div class="actions">
+<button class="btn back" onclick="location.href='index.html'">KEMBALI</button>
+<button id="nextBtn" class="btn next" disabled onclick="lanjut()">LANJUT PEMBAYARAN</button>
+</div>
+
+<script>
+const kategori=localStorage.getItem('kategori')||'-';
+const harga=parseInt(localStorage.getItem('harga')||0);
+const qty=parseInt(localStorage.getItem('qty')||0);
+const total=harga*qty;
+
+document.getElementById('kategori').innerText=kategori;
+document.getElementById('harga').innerText=harga.toLocaleString('id-ID');
+document.getElementById('qty').innerText=qty;
+document.getElementById('total').innerText=total.toLocaleString('id-ID');
+
+const fields=['nama','tgl','jk','email','alamat','agree'];
+
+function validate(){
+const ok=
+nama.value.trim() &&
+tgl.value &&
+jk.value &&
+email.value.trim() &&
+alamat.value.trim() &&
+agree.checked;
+
+nextBtn.disabled=!ok;
+if(ok) nextBtn.classList.add('active');
+else nextBtn.classList.remove('active');
+}
+
+fields.forEach(id=>{
+document.getElementById(id).addEventListener('input',validate);
+document.getElementById(id).addEventListener('change',validate);
+});
+
+function lanjut(){
+localStorage.setItem('nama',nama.value);
+localStorage.setItem('tgl',tgl.value);
+localStorage.setItem('jk',jk.value);
+localStorage.setItem('email',email.value);
+localStorage.setItem('alamat',alamat.value);
+location.href='qris.html';
+}
+</script>
+
+</body>
+</html>
